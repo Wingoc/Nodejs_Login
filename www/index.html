@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="./jquery-3.1.1.min.js"></script>
+    <title>Ajax</title>
+    <script type="text/javascript">
+      $(function(){
+        $("#reg_btn").click(function(){
+          var userVal = $("#User").val();
+          var passVal = $("#Pass").val();
+          $.ajax({
+            url: "/user",
+            dataType: "json",
+            data: {act: "reg", user: userVal, pass: passVal},
+            success: function (str){
+              if (str.ok){
+                alert("注册成功！");
+              } else {
+                alert("注册失败！  " + str.msg);
+              }
+            },
+            error: function (xhr, strError, strObject){
+              alert("通信错误！");
+              console.log(xhr.readyState, strError, strObject);
+            }
+          });
+        });
+      })
+    </script>
+  </head>
+  <body>
+      <p><label>用户：</label><input type="text" id="User" value=""></p>
+      <p><label>密码：</label><input type="password" id="Pass" value=""></p>
+      <span>
+        <input type="submit" id="reg_btn" value="注册" />
+        <input type="submit" id="login_btn" value="登录" />
+      </span>
+  </body>
+</html>
